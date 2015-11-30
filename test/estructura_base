@@ -1,0 +1,18 @@
+{
+  id:
+  name:
+  short_description:
+  author:
+  created_on:
+  created_by:
+  last_modified_on:
+  last_modified_by:
+  ingredientes: 
+    [{
+	   cantidad_primaria:
+	   nombre:
+	   cantidad_secundaria:
+	}]
+  preparacion:
+}
+  

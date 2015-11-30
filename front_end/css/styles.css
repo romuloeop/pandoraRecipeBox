@@ -1,0 +1,84 @@
+header{
+	/*Esta url de renueva*/
+	background: url("http://www.confettidesign.com.au/wp-content/uploads/2015/06/life-of-pix-free-stock-photos-food-sandwich-Vegetables-kitchen.jpg") transparent no-repeat;
+	min-height: 15em;
+	background-position: right;
+	background-size: 100%;
+}
+
+#principal .imagen img{
+	width:200px;
+	height:130px;
+}
+#principal .imagen figure{
+	width:200px;
+}
+
+@media (min-width: 1055px) {
+	#principal{ float:left; margin-left: 2em; width: 70%;}
+	#recetaSeleccionada{ float:left; margin-left: 2em; width: 70%;}
+	#listado{ float:right; margin-right: 2em; margin-top:2em; width: 25%; max-height: 30em; overflow-y: auto;}
+}
+@media (max-width: 1215px) {
+	#listado{ margin: 2em auto; width: 15%;}
+}
+@media (max-width: 1055px) {
+	#principal, #listado{ margin: 2em auto; width: 90%;}
+	#recetaSeleccionada{ margin: 2em auto; width: 90%;}
+}
+
+@media (min-width: 1242px) {
+	#principal .imagen{ width: 20%; float: left;}
+	#principal .encabezado{ width: 75%; float: right;}
+}
+
+article, #listado{
+	border: lightgray 1px solid;
+	margin-top: 4em;
+	padding: 2em;
+	font-size: 0.7em;
+	min-width: 310px;
+}
+article{
+	box-shadow: 5px 5px 5px #888888;
+}
+article:hover{
+	border: gray 2px solid;
+	background-color: lightgray;
+}
+article:active{
+	 position:relative;
+	 top:3px;
+}
+#listado ul{
+    list-style-type: none;
+}
+[data-label]{
+	font-style: italic;
+}
+[data-label=img]{
+	heigth: 150px;
+	width: 300px;
+}
+
+/*Estrellas de rating*/
+   span.rating {
+     background: url("http://4.bp.blogspot.com/-dbqKIdQPsmQ/UR9Zh676W3I/AAAAAAAAAoA/aTeGWPcG-IY/s1600/stars-yellow.png") top left;
+     /* background: url("stars-blue.png") top left; */
+     display: inline-block;
+     height: 21px;
+     width: 115px;
+     overflow: hidden;
+     text-indent: -9999px;
+    }
+   span.r0 {background-position: -115px 0;}
+   span.r05{background-position: -115px 21px;}
+   span.r1 {background-position: -92px 0;}
+   span.r15{background-position: -92px 21px;}
+   span.r2 {background-position: -69px 0;}
+   span.r25{background-position: -69px 21px;}
+   span.r3 {background-position: -46px 0;}
+   span.r35{background-position: -46px 21px;}
+   span.r4 {background-position: -23px 0;}
+   span.r45{background-position: -23px 21px;}
+   span.r5 {background-position: 0 0;}
