@@ -1,0 +1,21 @@
+<select name="limit2Show" ng-model="limit2Show" class="pull-right recipeFilter">
+	<option>1</option>
+	<option>10</option>
+	<option>20</option>
+	<option>50</option>
+	<option val="">All</option>
+</select>
+<input placeholder="Filtrar" name="recipeFilter" ng-model="recipeFilter" class="pull-right recipeFilter" />
+<div class="article" ng-repeat="recipe in rawData | filter:recipeFilter | limitTo:limit2Show" ng-click="displayDetail(recipe)">
+	<div class="imagen">
+		<figure>
+			<img ng-src="{{ recipe.imgUrl }}" />
+			<br />
+			<figcaption>{{ recipe.imgFt }}</figcaption>
+		</figure>
+	</div>
+	<div class="encabezado">
+		<h3>{{ recipe.name | uppercase }}<br /><small>{{ recipe.short_description }}</small></h3>
+	</div>
+	<br style="clear:both;" />
+</div>

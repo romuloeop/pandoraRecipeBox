@@ -2,7 +2,65 @@
  * 
  */
 
-var App=(function principal(){
+var App=angular.module("recipesPandora",["ngRoute"]);
+App.controller("ctrlPrincipal", function($scope){
+	$scope.displayDetail = false;
+	$scope.shDetail = function( show ){
+		$scope.displayDetail=show;
+	};
+});
+App.directive("recipeList",function(){
+	var directive ={};
+	directive.restrict = 'E';
+	directive.templateUrl="template/list_recipes.html";
+	directive.controller = function($scope,$http){
+		$scope.rawData = [];
+		$scope.limit2Show = '10';
+		$scope.recipeFilter= '';
+		$scope.displayDetail=function(recipe){
+			console.log(main.displayDetail);
+			main.shDetail(true);
+//			$scope.$parent.displayDetail(true);
+		};
+		$http.get("http://recpandoraapi.webcindario.com/damejson.php")
+		.then(function(response){
+//			console.log(response);
+			if(response.status==200){
+				$scope.rawData=JSON.parse(response.data.split('<!--')[0]);
+			}else{
+				alert("Problema de comunicación para obener el listado de recetas");
+			}
+		});
+	};
+	return directive;
+	
+});
+App.directive("recipeNav",function(){
+	var directive ={};
+	directive.restrict = 'A';
+	directive.templateUrl="template/nav_recipes.html";
+	directive.controller = function($scope,$http){
+		$scope.categories = {};
+		$http.get("http://recpandoraapi.webcindario.com/damejson.php")
+		.then(function(response){
+//			console.log(response);
+			if(response.status==200){
+				var rawData=JSON.parse(response.data.split('<!--')[0]);
+				for(var idx in rawData){
+					if($scope.categories[rawData[idx].category] == undefined) $scope.categories[rawData[idx].category]=[];
+					$scope.categories[rawData[idx].category].push(rawData[idx]);
+				}
+			}else{
+				alert("Problema de comunicación para obener el listado de navegacion");
+			}
+		});
+	};
+	return directive;
+	
+});
+
+/*
+(function principal(){
 	var regresa = {};
 	regresa.rawData={};
 	regresa.categories={};
@@ -91,8 +149,8 @@ var App=(function principal(){
 			});
 	
 	return regresa;
-})();
+});
 
 $(window).on('listosDatos',function(){
 	App.dibuja_nav();
-});
+});*/

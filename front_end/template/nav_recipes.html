@@ -1,0 +1,6 @@
+<div ng-repeat="(categorie,recipes) in categories">
+	<h5>{{ categorie | uppercase}}</h5>
+	<ul>
+		<li ng-repeat="recipe in recipes"><span class="btn btn-link">{{ recipe.name }}</span></li>
+	</ul>
+</div>

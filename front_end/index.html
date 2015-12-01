@@ -5,18 +5,21 @@
 <link rel="stylesheet" type="text/css" href="css/bootstrap-3.3.6/css/bootstrap.min.css"></link>
 <link rel="stylesheet" type="text/css" href="css/styles.css"></link>
 
-<script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
-<script type="text/javascript" src="css/bootstrap-3.3.6/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/angular.js"></script>
+<script type="text/javascript" src="https://code.angularjs.org/1.5.0-beta.2/angular-route.min.js"></script>
 <script type="text/javascript" src="js/app.js"></script>
 
 <title>Pandora's Recipes</title>
 </head>
-<body>
+<body ng-app="recipesPandora" ng-controller="ctrlPrincipal as main">
 	<header></header>
 	<main>
-	<nav id="listado"></nav>
-	<div id="principal"></div>
-	<div class="hidden" id="recetaSeleccionada">
+	<nav id="listado" recipe-nav="">
+	</nav>
+	<div id="principal" ng-show="{{!displayDetail}}">
+		<recipe-list></recipe-list>
+	</div>
+	<div ng-show="{{displayDetail}}" id="recetaSeleccionada">
 		<span class="btn btn-link" id="regresaListado"><i class="glyphicon glyphicon-menu-left"> </i>Ir al listado</span>
 		<figure>
 			<img src="" data-label="img" /><br />
