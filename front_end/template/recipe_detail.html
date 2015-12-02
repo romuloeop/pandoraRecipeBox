@@ -1,0 +1,28 @@
+<span class="btn btn-link" id="regresaListado" ng-click="returnToMain()"><i class="glyphicon glyphicon-menu-left"> </i>Ir al listado</span>
+<figure>
+	<img ng-src="{{recipe.imgUrl}}" data-label="img" /><br />
+	<figcaption><span data-label="imgFt"></span>{{recipe.imgFt}}</figcaption>
+</figure>
+<h2>
+<span data-label="name">{{recipe.name}}</span> | <br />
+<small><span data-label="description">{{recipe.description}}</span></small>
+</h2>
+<h3>
+	<small> - <span data-label="author">{{recipe.author}}</span></small>
+</h3>
+<div>
+	<strong>Difficulty:</strong> <span data-label="dificult">{{recipe.dificult}}</span> |
+	<span data-label="portion">{{recipe.portion_size}}</span> portions |
+	<strong>Prep time:</strong> <span data-label="time">{{recipe.time_preparation}}</span> minutes |
+	<span data-label="rate" ng-class="{rating: true, r1: recipe.rate==1, r2: recipe.rate==2, r3: recipe.rate==3, r4: recipe.rate==4, r5:recipe.rate==5, r0: recipe.rate==0}"></span> <br />
+	<span data-label="tags" ng-repeat="tag in recipe.tags.split(',')"><span class="label label-primary">{{tag}}</span>  </span>
+</div>
+<h4>INGREDIENTS</h4>
+<ul data-label="ingredients">
+	<li ng-repeat="ingredient in recipe.ingredientes">{{ingredient.cantidad_primaria}} {{ingredient.nombre}}</li>
+</ul>
+<h4>PREPARATION</h4>
+<div data-label="preparation">
+{{recipe.preparacion}}
+</div>
+

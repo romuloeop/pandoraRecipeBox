@@ -3,43 +3,69 @@
  */
 
 var App=angular.module("recipesPandora",["ngRoute"]);
-App.controller("ctrlPrincipal", function($scope){
-	$scope.displayDetail = false;
-	$scope.shDetail = function( show ){
-		$scope.displayDetail=show;
-	};
+App.factory('globalData', function() {
+	 var displayingRecipe = false;
+	 var recipes = [];
+	 return {
+		 getRecipes : function(){ return recipes; },
+		 setRecipes : function(newRecipes){ recipes = newRecipes; },
+	     getRecipe : function(){ return displayingRecipe; },
+	     setRecipe : function(newRecipe){ displayingRecipe = newRecipe; }
+	 };
 });
-App.directive("recipeList",function(){
-	var directive ={};
-	directive.restrict = 'E';
-	directive.templateUrl="template/list_recipes.html";
-	directive.controller = function($scope,$http){
+App.config(function($routeProvider){
+	$routeProvider
+	.when('/',{
+		templateUrl: 'template/list_recipes.html',
+		controller: 'recipeListCtrl'
+	})
+	.when('/detail',{
+		templateUrl: 'template/recipe_detail.html',
+		controller: 'recipeDetailCtrl'
+	})
+	.otherwise({
+		redirectTo: '/'
+	})
+});
+
+App.controller("recipeListCtrl",function($scope,$location,$http, globalData){
 		$scope.rawData = [];
 		$scope.limit2Show = '10';
 		$scope.recipeFilter= '';
 		$scope.displayDetail=function(recipe){
-			console.log(main.displayDetail);
-			main.shDetail(true);
+			globalData.setRecipe(recipe);
+			$location.path( '/detail' );
 //			$scope.$parent.displayDetail(true);
 		};
-		$http.get("http://recpandoraapi.webcindario.com/damejson.php")
-		.then(function(response){
+		var data = globalData.getRecipes();
+		if(data.length <= 0){
+			$http.get("http://recpandoraapi.webcindario.com/damejson.php")
+			.then(function(response){
 //			console.log(response);
-			if(response.status==200){
-				$scope.rawData=JSON.parse(response.data.split('<!--')[0]);
-			}else{
-				alert("Problema de comunicación para obener el listado de recetas");
-			}
-		});
-	};
-	return directive;
-	
+				if(response.status==200){
+					globalData.setRecipes(JSON.parse(response.data.split('<!--')[0]));
+					$scope.rawData=globalData.getRecipes();
+				}else{
+					alert("Problema de comunicación para obener el listado de recetas");
+				}
+			});
+		}else{
+			$scope.rawData=globalData.getRecipes();
+		}
+	});
+App.controller("recipeDetailCtrl",function($scope,$location,$http, globalData){
+	$scope.recipe=globalData.getRecipe();
+	if($scope.recipe===false) $location.path("/");
+	$scope.returnToMain=function(){
+		globalData.setRecipe(false);
+		$location.path("/");
+	}
 });
 App.directive("recipeNav",function(){
 	var directive ={};
 	directive.restrict = 'A';
 	directive.templateUrl="template/nav_recipes.html";
-	directive.controller = function($scope,$http){
+	directive.controller = function($scope,$location, $route, $http, globalData){
 		$scope.categories = {};
 		$http.get("http://recpandoraapi.webcindario.com/damejson.php")
 		.then(function(response){
@@ -54,11 +80,16 @@ App.directive("recipeNav",function(){
 				alert("Problema de comunicación para obener el listado de navegacion");
 			}
 		});
+		$scope.displayDetail=function(recipe){
+			globalData.setRecipe(recipe);
+			if($location.url()!='/detail') $location.path( '/detail' );
+			else $route.reload();
+//			$scope.$parent.displayDetail(true);
+		};
 	};
 	return directive;
 	
 });
-
 /*
 (function principal(){
 	var regresa = {};

@@ -11,40 +11,13 @@
 
 <title>Pandora's Recipes</title>
 </head>
-<body ng-app="recipesPandora" ng-controller="ctrlPrincipal as main">
+<body ng-app="recipesPandora">
 	<header></header>
 	<main>
 	<nav id="listado" recipe-nav="">
 	</nav>
-	<div id="principal" ng-show="{{!displayDetail}}">
-		<recipe-list></recipe-list>
-	</div>
-	<div ng-show="{{displayDetail}}" id="recetaSeleccionada">
-		<span class="btn btn-link" id="regresaListado"><i class="glyphicon glyphicon-menu-left"> </i>Ir al listado</span>
-		<figure>
-			<img src="" data-label="img" /><br />
-			<figcaption><span data-label="imgFt"></span> </figcaption>
-		</figure>
-		<h2>
-		<span data-label="name"></span> | <br />
-		<small><span data-label="description"></span></small>
-		</h2>
-		<h3>
-			<small> - <span data-label="author"></span></small>
-		</h3>
-		<div>
-			<strong>Difficulty:</strong> <span data-label="dificult"></span> |
-			<span data-label="portion"></span> portions |
-			<strong>Prep time:</strong> <span data-label="time"></span> minutes |
-			<span data-label="rate" class="rating"></span> <br />
-			<span data-label="tags"></span>
-		</div>
-		<h4>INGREDIENTS</h4>
-		<ul data-label="ingredients">
-		</ul>
-		<h4>PREPARATION</h4>
-		<div data-label="preparation">
-		</div>
+	<div id="principal" ng-view> 
+
 	</div>
 	</main>
 </body>
