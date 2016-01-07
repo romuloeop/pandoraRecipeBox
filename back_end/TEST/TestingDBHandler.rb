@@ -1,10 +1,10 @@
-require_relative 'lib/DBHandler.rb'
+require_relative '../lib/DBHandler.rb'
 
 version = DB.ask("Select version()");
 puts version[0];
 
 begin
-	DB::do("Drop table foo cascade;");
+	DB::do("Drop table if exists foo cascade;");
 	DB::do("Create table foo (id serial, something text, otro int);");
 	sql = "Insert into foo (something,otro) values (?,?) returning id;";
 	values = ["Lorem ipsum" , 5];
