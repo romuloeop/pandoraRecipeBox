@@ -51,12 +51,12 @@ Create table recipes(
 	preparacion text,
 	source text,
 	rate int,
-	dificult: text,
+	dificult text,
 	time_preparation time,
 	--"tags": "meat,pie,Canadian food",
 	category_id int,
 	primary key (id),
-	foreign key category_id REFERENCES categories(id) ON UPDATE CASCADE,
+	foreign key (category_id) REFERENCES categories(id) ON UPDATE CASCADE,
 	constraint chk_portion CHECK (portion_size > 0),
 	constraint chk_rate CHECK ( rate >= 0 and rate <=5)
 );
@@ -66,8 +66,8 @@ CREATE TABLE tag_recipe(
 	recipe_id int,
 	tag_id int,
 	primary key(recipe_id, tag_id),
-	foreign key tag_id REFERENCES tags (id) ON DELETE CASCADE,
-	foreign key recipe_id REFERENCES recipes (id) ON DELETE CASCADE
+	foreign key (tag_id) REFERENCES tags (id) ON DELETE CASCADE,
+	foreign key (recipe_id) REFERENCES recipes (id) ON DELETE CASCADE
 );
 
 COMMIT;
