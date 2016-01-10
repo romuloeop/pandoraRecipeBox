@@ -10,7 +10,7 @@ CREATE TABLE users(
 	sec_answer text,
 	activation_code text,
 	mail text,
-	active boolean default true,
+	active boolean default false,
 	blocked boolean default false,
 	admin_user boolean default false,
 	blocked_on timestamp,

@@ -17,24 +17,36 @@ class User
 	def self.isAdmin? username
 		sql = "Select admin from "+@USERTABLE+" where username=?";
 		user = DB::seq_query(sql, [username]);
-		print user
+		return user if(user === nil);
+		return (user[0]['admin']=='true');
 	end
 	def self.isActive? username
 		sql = "Select active from "+@USERTABLE+" where username=?";
 		user = DB::seq_query(sql, [username]);
-		return user if(user === nil)
-		return (user[0]['active']=='true')
+		return user if(user === nil);
+		return (user[0]['active']=='true');
 	end
 	def self.isBlocked? username
 		sql = "Select blocked from "+@USERTABLE+" where username=?";
 		user=  DB::seq_query(sql, [username]);
-		puts user;
+		return user if(user === nil);
+		return (user[0]['blocked']=='true');
 	end
 	def self.isValid?(username,password)
 		sql = "Select count(user_id) from "+@USERTABLE+" where active and not blocked and username=? and ssap=md5(?);";
 		user = DB::seq_query(sql,[username, password]);
 		return true if (user['count'].to_i>0);
 		return false;
+	end
+	def getUserByUsername username
+	 		sql = "Select user_id,username,mail,created_on from "+@USERTABLE+" where username=?;";
+		  user = DB::seq_query(sql,[username]);
+		  return user;
+	end
+	def getUserByMail mail
+	 		sql = "Select user_id,username,mail,created_on from "+@USERTABLE+" where mail=?;";
+		  user = DB::seq_query(sql,[mail]);
+		  return user;
 	end
 	private_class_method :getUserList;
 	#public :userExist?;
